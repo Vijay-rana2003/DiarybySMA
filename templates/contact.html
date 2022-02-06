@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Contact Us{% endblock title %}
+{% block css %}
+      <style>
+      #page{
+        min-height: 96vh;
+      }
+      </style>
+{% endblock css %}
+{% block contactusactive %}
+active
+{% endblock contactusactive %}
+{% block linecss %}style="background-image: url(/static/images/back3.jpg); background-repeat: no-repeat; background-position: center; background-size: cover;"{% endblock linecss %}
+{% block body %}
+
+        <form class="row g-3 container-fluid py-5" action="/contact/" method="post">
+        {% csrf_token %}
+        <div class="col-md-6">
+            <label for="inputEmail4" class="form-label fw-bold">Email</label>
+            <input type="email" class="form-control" id="inputEmail4" name='email' required>
+        </div>
+        <div class="col-md-6">
+            <label for="inputPassword4" class="form-label fw-bold" >Name</label>
+            <input type="text" class="form-control" id="inputPassword4" name = 'name' required>
+        </div>
+        <div class="col-12">
+            <label for="inputAddress" class="form-label fw-bold">Address</label>
+            <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" name="address">
+        </div>
+        <div class="col-12">
+            <label for="inputAddress2" class="form-label fw-bold" >Description</label>
+            <textarea required name="description" class="form-control" id="exampleFormControlTextarea1" rows="3" name = "problemdescription"></textarea>
+        </div>
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Contact Us</button>
+        </div>
+        </form>
+    
+{% endblock body %}

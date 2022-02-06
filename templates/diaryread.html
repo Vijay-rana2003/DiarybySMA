@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}
+{{diarypageread.Slug}}
+{% endblock title %}
+{% block css %}
+  <style>
+      #page{
+        min-height: 96vh;
+      }
+  </style>
+{% endblock css %}
+{% block diaryactive %}
+active
+{% endblock diaryactive %}
+
+{% block body %}
+<div class="container mt-1 " >
+    <span class=" m-1 " style="font-size:larger;">Written on {{diarypageread.Time}}</span><br>
+    <h1>{{diarypageread.Title|safe}}</h1><br>
+    {{diarypageread.Description|safe}}
+    <hr style="margin-bottom: 8px;">
+    <a href="/delete/{{diarypageread.sno}}"><button class="btn btn-outline-danger px-4 my-2" >Delete</button></a>
+    <a href="/update/{{diarypageread.sno}}" ><button type="button" class="btn btn-outline-success">Update</button></a>
+</div>
+{% endblock body %}

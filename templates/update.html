@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}
+Dashboard
+{% endblock title %}
+{% block js %}
+<script>
+document.addEventListener("DOMContentLoaded",function(event){
+    
+    let sc = document.createElement('script')
+    sc.setAttribute('src','https://cdn.tiny.cloud/1/emq643qcamiiyvocmxoadu5io8cni00kbuz9himjg89l54v2/tinymce/5/tinymce.min.js');
+    document.head.appendChild(sc);
+    sc.onload=()=>{
+        tinymce.init({
+            selector: '#userdiarytitle'
+        });
+        tinymce.init({
+            selector: '#userdiarydescription'
+            
+        })
+        
+    }
+});
+    </script>
+{% endblock js %}
+{% block updateactive %}active{% endblock updateactive %}
+{% block body %}
+<div class="container">
+    
+    <h1 class="mt-4 text-primary">Alter your Diary Here: </h1>
+    <form action="/update/{{diarypageread.sno}}" method="post">
+    {% csrf_token %}
+        <div class="mb-3 align-self-sm-center mt-3" id="userdiaryform" >
+            <label for="userdiarytitle" class="form-label">Title</label>
+            <input type="text" class="form-control" id="userdiarytitle" name="userdiarytitle" value="{{diarypageread.Title}}">
+        </div>
+        <div class="mb-3">
+            <label for="userdiarydescription" class="form-label">Description</label>
+            <textarea class="form-control" id="userdiarydescription" name="userdiarydescription" rows="3" aria-valuetext="{{diarypageread.Description}}">{{diarypageread.Description}}</textarea>
+        </div>
+        <div class="mb-3" >
+            <label for="userdiaryslug" class="form-label">Slug</label>
+            <input type="text" class="form-control" id="userdiaryslug" name="userdiaryslug" value="{{diarypageread.Slug}}" required>
+        </div>
+        <button type="submit" class="btn btn-outline-success px-4 my-2" >Update</button>
+    </form>
+    <a href="/delete/{{diarypageread.sno}}"><button class="btn btn-outline-danger px-4 my-2" >Delete</button></a>
+    
+</div>
+
+{% endblock body %}

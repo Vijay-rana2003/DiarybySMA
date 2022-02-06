@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}
+My Diary
+{% endblock title %}
+{% block css %}
+  <style>
+      #page{
+        min-height: 96vh;
+      }
+  </style>
+{% endblock css %}
+{% block linecss %}style="background-image: url(/static/images/back.jpg); background-repeat: no-repeat; background-position: center; background-size: cover;"{% endblock linecss %}
+{% block diaryactive %}
+active
+{% endblock diaryactive %}
+{% block body %}
+<div class="container-fluid mt-0">
+  <div class="container mx-auto mt-2">
+    {% if user.is_authenticated %}
+  <h3 class="text-primary">{{user.username}}, your Diary :- </h3>
+  {% else %}
+  <h3>Write your Diary to See here:- </h3>
+  {% endif %}
+  {% for diary in userdiary %}
+  </div>
+  <div class="card w-75 mx-auto mt-2">
+    <div class="card-body">
+      <h5 class="card-title">{{diary.Title|safe}}</h5>
+      <p class="card-text">{{diary.Short_Description|safe}}</p>
+      <a href="/read/{{diary.sno}}" class="btn btn-primary">Read More</a>
+    </div>
+  </div>
+  {% endfor %}
+  {% if user.is_authenticated %}
+  <div class="d-grid gap-2 d-md-flex justify-content-md-end my-1">
+    {% if prev %}
+    <button class="btn btn-primary me-md-2 " type="button" ><a href="?page={{prev}}" class="text-light text-decoration-none">&laquo; Prev</a></button>
+    {% else %}
+    <button class="btn btn-danger me-md-2" type="button" data-bs-toggle="popover" title="First page" data-bs-content="Oh sorry! This is the first page">&laquo; Prev</button>
+    {% endif %}
+    {% if next %}
+    <button class="btn btn-primary text-black" type="button"><a href="?page={{next}}" class="text-light text-decoration-none">Next &raquo;</a></button>
+    {% else %}
+    <button class="btn btn-danger" type="button" data-bs-toggle="popover" title="Last Page" data-bs-content="Congratulations! You habe read all the blogs">Next &raquo;</button>
+    <!-- <button type="button" class="btn btn-lg btn-danger" data-bs-toggle="popover" title="Popover title" data-bs-content="And here's some amazing content. It's very engaging. Right?">Click to toggle popover</button> -->
+  {% endif %}
+  {% endif %}
+  </div>
+</div>
+
+{% endblock body %}

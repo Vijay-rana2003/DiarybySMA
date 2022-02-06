@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}
+Dashboard
+{% endblock title %}
+{% block homeactive %}
+active
+{% endblock homeactive %}
+{% block js %}
+<script>
+document.addEventListener("DOMContentLoaded",function(event){
+    
+    let sc = document.createElement('script')
+    sc.setAttribute('src','https://cdn.tiny.cloud/1/emq643qcamiiyvocmxoadu5io8cni00kbuz9himjg89l54v2/tinymce/5/tinymce.min.js');
+    document.head.appendChild(sc);
+    sc.onload=()=>{
+        tinymce.init({
+            selector: '#userdiarytitle'
+        });
+        tinymce.init({
+            selector: '#userdiarydescription'
+            
+        })
+        
+    }
+});
+    </script>
+{% endblock js %}
+{% block linecss %}style="background-image: url(/static/images/back2.jpg); background-repeat: no-repeat; background-position: center; background-size: cover;"{% endblock linecss %}
+{% block body %}
+<div class="container">
+    <div class="alert alert-success mt-0 " role="alert">
+        <h4 class="alert-heading">Welcome {{user.username}}!</h4>
+        <p>Welcome to Your amazing Diary you can write you Diary, that Diary wil display in Diary page. <br class="mb-1">
+            Some rules to write your Diary:
+            <ul class="mt-1">
+                <li>Keep the slug same as your Title, it will help to render your Diary.</li>
+                <li>Don't save empty slug.</li>
+            </ul>
+        </p>
+        <hr>
+        <p class="mb-0">Whenever you need or have any querry, Contact Us through contact page we will reply you soon.</p>
+    </div>
+    <h1 class="mt-4 text-primary">Write your Diary Here: </h1>
+    <form action="/dashboard/" method="post">
+    {% csrf_token %}
+        <div class="mb-3 align-self-sm-center mt-3" id="userdiaryform" >
+            <label for="userdiarytitle" class="form-label badge bg-black" style="color: white;">Title</label>
+            <input type="text" class="form-control" id="userdiarytitle" name="userdiarytitle">
+        </div>
+        <div class="mb-3">
+            <label for="userdiarydescription" class="form-label badge bg-black" style="color: white;">Description</label>
+            <textarea class="form-control" id="userdiarydescription" name="userdiarydescription" rows="3"></textarea>
+        </div>
+        <div class="mb-3" >
+            <label for="userdiaryslug" class="form-label badge bg-black" style="color: white;">Slug</label>
+            <input type="text" class="form-control" id="userdiaryslug" name="userdiaryslug" required>
+        </div>
+        <button type="submit" class="btn btn-success px-4 my-2" >Save</button>
+    </form>
+    
+</div>
+
+{% endblock body %}
