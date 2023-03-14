@@ -17,3 +17,4 @@ class contactuser(models.Model):
     Description = models.TextField()
     Email=models.EmailField()
     Time=models.DateTimeField(auto_now_add=True)
+# class obect module to access db without sql query direct write use orm 
